@@ -1,0 +1,9 @@
+.Nav {
+  border: 1px solid red;
+  margin: 3px;
+  padding: 3px;
+  display: flex;
+  justify-content: space-evenly;
+  height: 150px;
+  align-items: center;
+}

@@ -1,10 +1,10 @@
-import './App.css';
-const cors = require('cors');
+import './style/App.css';
+import Nav from './components/Nav.jsx';
 
 function App() {
   return (
     <div className='App'>
-      <h1>My App</h1>
+      <Nav />
     </div>
   );
 }
