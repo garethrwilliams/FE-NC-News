@@ -4,13 +4,8 @@ const ncNewsApi = axios.create({
   baseURL: 'https://gareths-nc-news.herokuapp.com/api',
 });
 
-export const getArticles = async (searchParams) => {
-  const params = {};
-  searchParams.forEach((value, key) => {
-    params[key] = value;
-  });
-
-  const {data} = await ncNewsApi.get('/articles', {params: params});
+export const getArticles = async (topic) => {
+  const {data} = await ncNewsApi.get('/articles', {params: {topic: topic}});
   return data.articles;
 };
 

@@ -1,11 +1,14 @@
 import {useState, useEffect} from 'react';
 import styles from '../styles/FilterArticles.module.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
-export default function FilterArticles({topics, setSearchParams}) {
+export default function FilterArticles({topics}) {
+  let navigate = useNavigate();
+
   const handleTopicChange = (e) => {
-    const params = {topic: e.target.value};
-    setSearchParams({...params});
+    e.preventDefault();
+    console.log(e.target.value);
+    navigate(`/articles/${e.target.value}`);
   };
 
   return (
