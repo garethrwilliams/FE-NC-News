@@ -1,6 +1,7 @@
 .Nav {
   border: 1px solid red;
-  margin: 3px;
+  width: 96vw;
+  margin: auto;
   padding: 3px;
   display: flex;
   justify-content: space-evenly;
