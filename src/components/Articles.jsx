@@ -1,26 +1,35 @@
-import {getArticles} from '../utils/api';
+import {getArticles, getTopics} from '../utils/api';
 import {useState, useEffect} from 'react';
 import styles from '../styles/Articles.module.css';
 import {categoryBackground} from '../utils/helperFunctions';
+import FilterArticles from './FilterArticles';
+import {useSearchParams} from 'react-router-dom';
 
 export default function Articles() {
-  console.log('styles:', styles);
   const [articles, setArticles] = useState();
+  const [topics, setTopics] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
 
+  /* for (const params in searchParams) {
+    console.log('params:', params);
+  }
+ */
+
   useEffect(() => {
-    getArticles().then((newArticles) => {
-      console.log('articles:', newArticles);
-      setArticles(newArticles);
+    Promise.all([getArticles(searchParams), getTopics()]).then((data) => {
+      setArticles(data[0]);
+      setTopics(data[1]);
       setIsLoading(false);
     });
-  }, []);
+  }, [searchParams]);
 
   if (isLoading) return;
 
   return (
     <div className={styles.Articles__articlesContainer}>
       <h1>Articles</h1>
+      <FilterArticles topics={topics} setSearchParams={setSearchParams} />
       <ul className={styles.Articles__articlesList}>
         {articles.map((article) => {
           return (
