@@ -1,0 +1,20 @@
+.FilterArticles__container {
+  border: 1px solid lightseagreen;
+  padding-left: 15px;
+  margin: 5px 28px 5px 28px;
+  height: 40px;
+  position: relative;
+}
+.FilterArticles__clearButton {
+  position: absolute;
+  right: 10px;
+  margin-top: 5px;
+}
+
+.FilterArticles__container > * {
+  margin: 5px;
+}
+
+.FilterArticles__container > select {
+  width: 100px;
+}
