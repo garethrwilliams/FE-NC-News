@@ -1,26 +1,30 @@
-import {getArticles} from '../utils/api';
+import {getArticles, getTopics} from '../utils/api';
 import {useState, useEffect} from 'react';
 import styles from '../styles/Articles.module.css';
 import {categoryBackground} from '../utils/helperFunctions';
+import FilterArticles from './FilterArticles';
+import {useParams} from 'react-router';
 
 export default function Articles() {
-  console.log('styles:', styles);
   const [articles, setArticles] = useState();
+  const [topics, setTopics] = useState();
+  const {topic} = useParams();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getArticles().then((newArticles) => {
-      console.log('articles:', newArticles);
-      setArticles(newArticles);
+    Promise.all([getArticles(topic), getTopics()]).then((data) => {
+      setArticles(data[0]);
+      setTopics(data[1]);
       setIsLoading(false);
     });
-  }, []);
+  }, [topic]);
 
   if (isLoading) return;
 
   return (
     <div className={styles.Articles__articlesContainer}>
       <h1>Articles</h1>
+      <FilterArticles topics={topics} />
       <ul className={styles.Articles__articlesList}>
         {articles.map((article) => {
           return (

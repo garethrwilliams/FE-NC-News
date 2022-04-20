@@ -14,7 +14,5 @@ export function categoryBackground(category) {
       backgroundColour = 'grey';
   }
 
-  console.log({backgroundColor: `${backgroundColour}`});
-
   return {backgroundColor: `${backgroundColour}`};
 }
