@@ -8,3 +8,9 @@ export const getArticles = async () => {
   const {data} = await ncNewsApi.get('/articles');
   return data.articles;
 };
+
+export const getArticle = async (articleId) => {
+  const {data} = await ncNewsApi.get(`articles/${articleId}`);
+  console.log(data);
+  return data.article;
+};

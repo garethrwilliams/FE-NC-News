@@ -2,6 +2,7 @@ import {getArticles} from '../utils/api';
 import {useState, useEffect} from 'react';
 import styles from '../styles/Articles.module.css';
 import {categoryBackground} from '../utils/helperFunctions';
+import {Link} from 'react-router-dom';
 
 export default function Articles() {
   console.log('styles:', styles);
@@ -29,11 +30,13 @@ export default function Articles() {
               className={styles.Articles__articleItem}
               key={article.article_id}
             >
-              <section className={styles.Articles__articleContainer}>
-                <h5>{article.title}</h5>
-                <p>{article.author}</p>
-                <p>{article.topic}</p>
-              </section>
+              <Link to={`${article.article_id}`}>
+                <section className={styles.Articles__articleContainer}>
+                  <h5>{article.title}</h5>
+                  <p>{article.author}</p>
+                  <p>{article.topic}</p>
+                </section>
+              </Link>
             </li>
           );
         })}
