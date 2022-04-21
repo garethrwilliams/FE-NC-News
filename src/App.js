@@ -10,11 +10,8 @@ function App() {
       <Nav />
       <Routes>
         <Route path='/articles' element={<Articles />}></Route>
-<<<<<<< HEAD
+        <Route path='/articles/topics/:topic' element={<Articles />}></Route>
         <Route path='/articles/:article_id' element={<Article />}></Route>
-=======
-        <Route path='/articles/:topic' element={<Articles />}></Route>
->>>>>>> main
       </Routes>
     </div>
   );
