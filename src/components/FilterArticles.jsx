@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react';
 import styles from '../styles/FilterArticles.module.css';
 import {Link, useNavigate} from 'react-router-dom';
 
