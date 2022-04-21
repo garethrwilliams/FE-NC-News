@@ -1,0 +1,39 @@
+.Article__container {
+  border: 1px solid aqua;
+  margin: 1rem 10vw 1rem 10vw;
+  padding: 2rem;
+}
+
+.Article__dateVote {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.Comments__container {
+  border: 1px solid lightcoral;
+  margin: 10vw;
+  padding: 2rem;
+}
+
+.Comments__container > h3 {
+  margin-bottom: 10vh;
+}
+.Comments__commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+  height: 1em;
+}
+.Comments__commentList > h4 {
+  margin-bottom: 0.5em;
+}
+
+.Comments__commentList > p {
+  margin-top: 0.3em;
+}
+.Comments__commentList > p:last-child {
+  margin-bottom: 4em;
+}

@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react';
 import styles from '../styles/FilterArticles.module.css';
 import {Link, useNavigate} from 'react-router-dom';
 
@@ -7,8 +6,7 @@ export default function FilterArticles({topics}) {
 
   const handleTopicChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
-    navigate(`/articles/${e.target.value}`);
+    navigate(`/articles/topics/${e.target.value}`);
   };
 
   return (

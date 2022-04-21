@@ -2,10 +2,11 @@ import {getArticles, getTopics} from '../utils/api';
 import {useState, useEffect} from 'react';
 import styles from '../styles/Articles.module.css';
 import {categoryBackground} from '../utils/helperFunctions';
+import {Link} from 'react-router-dom';
 import FilterArticles from './FilterArticles';
 import {useParams} from 'react-router';
 
-export default function Articles() {
+export default function Articles(props) {
   const [articles, setArticles] = useState();
   const [topics, setTopics] = useState();
   const {topic} = useParams();
@@ -33,11 +34,13 @@ export default function Articles() {
               className={styles.Articles__articleItem}
               key={article.article_id}
             >
-              <section className={styles.Articles__articleContainer}>
-                <h5>{article.title}</h5>
-                <p>{article.author}</p>
-                <p>{article.topic}</p>
-              </section>
+              <Link to={{pathname: `/articles/${article.article_id}`}}>
+                <section className={styles.Articles__articleContainer}>
+                  <h5>{article.title}</h5>
+                  <p>{article.author}</p>
+                  <p>{article.topic}</p>
+                </section>
+              </Link>
             </li>
           );
         })}

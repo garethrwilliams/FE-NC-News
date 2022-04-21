@@ -1,7 +1,7 @@
 .Nav {
   border: 1px solid red;
   width: 96vw;
-  margin: auto;
+  margin: 5px auto;
   padding: 3px;
   display: flex;
   justify-content: space-evenly;
