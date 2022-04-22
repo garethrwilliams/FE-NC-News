@@ -1,12 +1,16 @@
-import {useEffect, useState} from 'react';
+import AddComment from './AddComment';
 import {getComments} from '../utils/api';
-import {useParams} from 'react-router';
-import style from '../styles/Article.module.css';
+import {deleteComment} from '../utils/api';
+import {useEffect, useState} from 'react';
+import style from '../styles/Comments.module.css';
 
-export default function Comments() {
+export default function Comments({article_id}) {
   const [comments, setComments] = useState();
+  const [updateConfirmed, setUpdateConfirmed] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  let {article_id} = useParams();
+  console.log('comments:', comments);
+
+  console.log('comments:', comments ? comments.length : null);
 
   function dateToString(timestamp) {
     return new Date(timestamp).toDateString();
@@ -17,26 +21,45 @@ export default function Comments() {
       setComments(data);
       setIsLoading(false);
     });
-  }, [article_id]);
+  }, [article_id, updateConfirmed]);
 
   if (isLoading) return;
 
   return (
-    <ul className={style.Comments__container}>
-      <h3>Comments</h3>
-      {comments.map((comment) => {
-        return (
-          <li className={style.Comments__commentList} key={comment.comment_id}>
-            <div className={style.Comments__commentHeader}>
-              <h4>{comment.username}</h4>
-              <em>{dateToString(comment.created_at)}</em>
-            </div>
-            <hr />
-            <p>{comment.body}</p>
-            <p>Votes: {comment.votes}</p>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <AddComment
+        article_id={article_id}
+        setComments={setComments}
+        setUpdateConfirmed={setUpdateConfirmed}
+      />
+      <ul className={style.Comments__container}>
+        <h3>Comments</h3>
+        {comments.map((comment, i) => {
+          return (
+            <li className={style.Comments__commentList} key={i}>
+              <div className={style.Comments__commentHeader}>
+                <h4>{comment.username}</h4>
+                <em>{dateToString(comment.created_at)}</em>
+              </div>
+              <hr />
+              <p>{comment.body}</p>
+              <div className={style.Comments__votesDelete}>
+                <p>Votes: {comment.votes}</p>
+                <button
+                  onClick={() => {
+                    const newComments = [...comments];
+                    newComments.splice(i, 1);
+                    setComments(newComments);
+                    deleteComment(comment.comment_id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 }

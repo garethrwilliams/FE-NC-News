@@ -3,13 +3,11 @@ import {getArticle, patchArticle} from '../utils/api';
 import {useParams} from 'react-router';
 import style from '../styles/Article.module.css';
 
-export default function Article() {
+export default function Article({article_id}) {
   const [article, setArticle] = useState();
   const [voteCount, setVoteCount] = useState();
   const [voted, setVoted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  let {article_id} = useParams();
-  console.log('article_id:', article_id);
 
   function dateToString(timestamp) {
     return new Date(timestamp).toDateString();
