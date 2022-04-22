@@ -1,15 +1,5 @@
 import axios from 'axios';
 
-function compare(a, b) {
-  if (a.comment_id < b.comment_id) {
-    return 1;
-  }
-  if (a.comment_id > b.comment_id) {
-    return -1;
-  }
-  return 0;
-}
-
 const ncNewsApi = axios.create({
   baseURL: 'https://gareths-nc-news.herokuapp.com/api',
 });
@@ -52,9 +42,9 @@ export const getComments = async (article_id) => {
     },
   });
   const comments = data.comments;
-  console.log('presort-comments:', comments);
-  comments.sort(compare);
-  console.log('postsort-comments:', comments);
+  comments.sort((a, b) => {
+    return Date.parse(b.created_at) - Date.parse(a.created_at);
+  });
   return comments;
 };
 
@@ -66,14 +56,11 @@ export const postComment = async (article_id, body) => {
       body
     );
     console.log('data:', data);
-  } catch (err) {
-    console.log('err:', err);
-  }
+  } catch (err) {}
 };
 
 export const deleteComment = async (comment_id) => {
   const {data} = await ncNewsApi.delete(`comments/${comment_id}`);
-
   console.log('data:', data);
   return data;
 };

@@ -27,6 +27,8 @@ export default function AddComment({
     e.preventDefault();
     setUpdateConfirmed(false);
 
+    console.log(e.target.form[1].value);
+
     const comment = {
       votes: 0,
       username: e.target.form[1].value,

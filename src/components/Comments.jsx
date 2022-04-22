@@ -8,6 +8,7 @@ export default function Comments({article_id}) {
   const [comments, setComments] = useState();
   const [updateConfirmed, setUpdateConfirmed] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  console.log('comments:', comments);
 
   console.log('comments:', comments ? comments.length : null);
 
