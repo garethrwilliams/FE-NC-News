@@ -1,0 +1,38 @@
+.Comments__container {
+  border: 1px solid lightcoral;
+  margin: 10vw;
+  padding: 2rem;
+}
+
+.Comments__container > h3 {
+  margin-bottom: 10vh;
+}
+.Comments__commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+  height: 1em;
+}
+.Comments__commentList > h4 {
+  margin-bottom: 0.5em;
+}
+
+.Comments__commentList > p {
+  margin-top: 0.3em;
+}
+
+.Comments__votesDelete {
+  display: flex;
+  margin-bottom: 4em;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+
+.Comments__votesDelete > button {
+  height: 1.5rem;
+}
+
+.Comments__votesDelete > p {
+  margin-top: 0px;
+}

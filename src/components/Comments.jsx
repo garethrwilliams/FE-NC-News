@@ -1,12 +1,11 @@
 import {useEffect, useState} from 'react';
 import {getComments} from '../utils/api';
-import {useParams} from 'react-router';
-import style from '../styles/Article.module.css';
+import AddComment from './AddComment';
+import style from '../styles/Comments.module.css';
 
-export default function Comments() {
+export default function Comments({article_id}) {
   const [comments, setComments] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  let {article_id} = useParams();
 
   function dateToString(timestamp) {
     return new Date(timestamp).toDateString();
@@ -22,21 +21,35 @@ export default function Comments() {
   if (isLoading) return;
 
   return (
-    <ul className={style.Comments__container}>
-      <h3>Comments</h3>
-      {comments.map((comment) => {
-        return (
-          <li className={style.Comments__commentList} key={comment.comment_id}>
-            <div className={style.Comments__commentHeader}>
-              <h4>{comment.username}</h4>
-              <em>{dateToString(comment.created_at)}</em>
-            </div>
-            <hr />
-            <p>{comment.body}</p>
-            <p>Votes: {comment.votes}</p>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <AddComment article_id={article_id} setComments={setComments} />
+      <ul className={style.Comments__container}>
+        <h3>Comments</h3>
+        {comments.map((comment, i) => {
+          return (
+            <li className={style.Comments__commentList} key={i}>
+              <div className={style.Comments__commentHeader}>
+                <h4>{comment.username}</h4>
+                <em>{dateToString(comment.created_at)}</em>
+              </div>
+              <hr />
+              <p>{comment.body}</p>
+              <div className={style.Comments__votesDelete}>
+                <p>Votes: {comment.votes}</p>
+                <button
+                  onClick={() => {
+                    const newComments = [...comments];
+                    newComments.splice(i, 1);
+                    setComments(newComments);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 }

@@ -1,24 +1,33 @@
-import {getArticles, getTopics} from '../utils/api';
-import {useState, useEffect} from 'react';
-import styles from '../styles/Articles.module.css';
-import {categoryBackground} from '../utils/helperFunctions';
 import {Link} from 'react-router-dom';
-import FilterArticles from './FilterArticles';
 import {useParams} from 'react-router';
+import {useState, useEffect} from 'react';
+import FilterArticles from './FilterArticles';
+import ArticlePagination from './ArticlePagination';
+import {getArticles, getTopics} from '../utils/api';
+import {categoryBackground} from '../utils/helperFunctions';
+import styles from '../styles/Articles.module.css';
 
 export default function Articles(props) {
-  const [articles, setArticles] = useState();
-  const [topics, setTopics] = useState();
   const {topic} = useParams();
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(false);
+  const [topics, setTopics] = useState();
+  const [articles, setArticles] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([getArticles(topic), getTopics()]).then((data) => {
-      setArticles(data[0]);
-      setTopics(data[1]);
-      setIsLoading(false);
-    });
-  }, [topic]);
+    Promise.all([getArticles(topic, page), getTopics()])
+      .catch((err) => {
+        if (err) return setLastPage(true);
+      })
+
+      .then((data) => {
+        setArticles(data[0]);
+        setTopics(data[1]);
+        setIsLoading(false);
+        setLastPage(false);
+      });
+  }, [topic, page]);
 
   if (isLoading) return;
 
@@ -45,6 +54,7 @@ export default function Articles(props) {
           );
         })}
       </ul>
+      <ArticlePagination page={page} setPage={setPage} lastPage={lastPage} />
     </div>
   );
 }
