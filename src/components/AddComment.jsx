@@ -4,7 +4,11 @@ import {useContext} from 'react';
 import {UserContext} from '../contexts/User';
 import style from '../styles/AddComment.module.css';
 
-export default function AddComment({article_id, setComments}) {
+export default function AddComment({
+  article_id,
+  setComments,
+  setUpdateConfirmed,
+}) {
   const {users} = useContext(UserContext);
   const [newComment, setNewComment] = useState('');
   const [validUsername, setValidUsername] = useState(false);
@@ -21,6 +25,7 @@ export default function AddComment({article_id, setComments}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUpdateConfirmed(false);
 
     const comment = {
       votes: 0,
@@ -38,6 +43,8 @@ export default function AddComment({article_id, setComments}) {
     postComment(article_id, {
       username: e.target.form[1].value,
       body: e.target.form[0].value,
+    }).then(() => {
+      setUpdateConfirmed(true);
     });
     e.target.form[0].value = '';
   };

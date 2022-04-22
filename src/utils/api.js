@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+function compare(a, b) {
+  if (a.comment_id < b.comment_id) {
+    return 1;
+  }
+  if (a.comment_id > b.comment_id) {
+    return -1;
+  }
+  return 0;
+}
+
 const ncNewsApi = axios.create({
   baseURL: 'https://gareths-nc-news.herokuapp.com/api',
 });
@@ -37,9 +47,15 @@ export const patchArticle = async (article_id, body) => {
 
 export const getComments = async (article_id) => {
   const {data} = await ncNewsApi.get(`/articles/${article_id}/comments`, {
-    limit: 50,
+    params: {
+      limit: 50,
+    },
   });
-  return data.comments;
+  const comments = data.comments;
+  console.log('presort-comments:', comments);
+  comments.sort(compare);
+  console.log('postsort-comments:', comments);
+  return comments;
 };
 
 export const postComment = async (article_id, body) => {
@@ -59,6 +75,7 @@ export const deleteComment = async (comment_id) => {
   const {data} = await ncNewsApi.delete(`comments/${comment_id}`);
 
   console.log('data:', data);
+  return data;
 };
 
 export const getUsers = async () => {

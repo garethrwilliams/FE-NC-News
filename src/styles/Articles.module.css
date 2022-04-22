@@ -1,5 +1,6 @@
 .Articles__articlesContainer {
   margin: auto;
+  width: 95vw;
 }
 
 .Articles__articlesContainer > h1 {
@@ -8,16 +9,13 @@
 }
 
 .Articles__articlesList {
-  margin: auto;
+  /* margin: auto; */
 }
 
 .Articles__articleItem {
   border: 1px solid green;
-  width: 15rem;
-  height: 15rem;
-}
-
-.Articles__articleItem {
+  width: 30vw;
+  height: 30vw;
   position: relative;
   margin: 5px auto;
 }
@@ -38,7 +36,7 @@
   .Articles__articleContainer {
     /* border: 1px solid green;
     background-color: beige; */
-    position: relative;
+    /* position: relative; */
     /* width: 150px;
     bottom: -90px; */
   }

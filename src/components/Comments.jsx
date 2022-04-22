@@ -6,7 +6,10 @@ import style from '../styles/Comments.module.css';
 
 export default function Comments({article_id}) {
   const [comments, setComments] = useState();
+  const [updateConfirmed, setUpdateConfirmed] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log('comments:', comments ? comments.length : null);
 
   function dateToString(timestamp) {
     return new Date(timestamp).toDateString();
@@ -17,13 +20,17 @@ export default function Comments({article_id}) {
       setComments(data);
       setIsLoading(false);
     });
-  }, [article_id]);
+  }, [article_id, updateConfirmed]);
 
   if (isLoading) return;
 
   return (
     <>
-      <AddComment article_id={article_id} setComments={setComments} />
+      <AddComment
+        article_id={article_id}
+        setComments={setComments}
+        setUpdateConfirmed={setUpdateConfirmed}
+      />
       <ul className={style.Comments__container}>
         <h3>Comments</h3>
         {comments.map((comment, i) => {
