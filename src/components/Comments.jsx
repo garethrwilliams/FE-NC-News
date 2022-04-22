@@ -8,9 +8,6 @@ export default function Comments({article_id}) {
   const [comments, setComments] = useState();
   const [updateConfirmed, setUpdateConfirmed] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  console.log('comments:', comments);
-
-  console.log('comments:', comments ? comments.length : null);
 
   function dateToString(timestamp) {
     return new Date(timestamp).toDateString();
@@ -33,7 +30,10 @@ export default function Comments({article_id}) {
         setUpdateConfirmed={setUpdateConfirmed}
       />
       <ul className={style.Comments__container}>
-        <h3>Comments</h3>
+        <h3>
+          Comments
+          <em> ({comments.length})</em>
+        </h3>
         {comments.map((comment, i) => {
           return (
             <li className={style.Comments__commentList} key={i}>
