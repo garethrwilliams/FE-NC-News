@@ -20,37 +20,45 @@ export const getTopics = async () => {
   return data.topics;
 };
 
-export const getArticle = async (article_Id) => {
-  const {data} = await ncNewsApi.get(`/articles/${article_Id}`);
+export const getArticle = async (article_id) => {
+  const {data} = await ncNewsApi.get(`/articles/${article_id}`);
   return data.article;
 };
 
-export const patchArticle = async (article_Id, body) => {
+export const patchArticle = async (article_id, body) => {
   try {
     console.log('body:', body);
-    const {data} = await ncNewsApi.patch(`/articles/${article_Id}`, body);
+    const {data} = await ncNewsApi.patch(`/articles/${article_id}`, body);
     console.log('data:', data);
   } catch (err) {
     console.log('err:', err);
   }
 };
 
-export const getComments = async (article_Id) => {
-  const {data} = await ncNewsApi.get(`/articles/${article_Id}/comments`);
+export const getComments = async (article_id) => {
+  const {data} = await ncNewsApi.get(`/articles/${article_id}/comments`, {
+    limit: 50,
+  });
   return data.comments;
 };
 
-export const postComment = async (article_Id, body) => {
+export const postComment = async (article_id, body) => {
   try {
-    console.log(article_Id, body);
+    console.log(article_id, body);
     const {data} = await ncNewsApi.post(
-      `/articles/${article_Id}/comments`,
+      `/articles/${article_id}/comments`,
       body
     );
     console.log('data:', data);
   } catch (err) {
     console.log('err:', err);
   }
+};
+
+export const deleteComment = async (comment_id) => {
+  const {data} = await ncNewsApi.delete(`comments/${comment_id}`);
+
+  console.log('data:', data);
 };
 
 export const getUsers = async () => {

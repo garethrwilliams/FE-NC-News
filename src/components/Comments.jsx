@@ -1,6 +1,7 @@
-import {useEffect, useState} from 'react';
-import {getComments} from '../utils/api';
 import AddComment from './AddComment';
+import {getComments} from '../utils/api';
+import {deleteComment} from '../utils/api';
+import {useEffect, useState} from 'react';
 import style from '../styles/Comments.module.css';
 
 export default function Comments({article_id}) {
@@ -41,6 +42,7 @@ export default function Comments({article_id}) {
                     const newComments = [...comments];
                     newComments.splice(i, 1);
                     setComments(newComments);
+                    deleteComment(comment.comment_id);
                   }}
                 >
                   Delete
