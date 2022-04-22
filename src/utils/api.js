@@ -14,8 +14,6 @@ export const getArticles = async (topic, page = 1, searchParams) => {
     params[key] = value;
   });
 
-  console.log('params:', params);
-
   const {data} = await ncNewsApi.get('/articles', {params: params});
   return data.articles;
 };
@@ -32,12 +30,8 @@ export const getArticle = async (article_id) => {
 
 export const patchArticle = async (article_id, body) => {
   try {
-    console.log('body:', body);
     const {data} = await ncNewsApi.patch(`/articles/${article_id}`, body);
-    console.log('data:', data);
-  } catch (err) {
-    console.log('err:', err);
-  }
+  } catch (err) {}
 };
 
 export const getComments = async (article_id) => {
@@ -55,12 +49,7 @@ export const getComments = async (article_id) => {
 
 export const postComment = async (article_id, body) => {
   try {
-    console.log(article_id, body);
-    const {data} = await ncNewsApi.post(
-      `/articles/${article_id}/comments`,
-      body
-    );
-    console.log('data:', data);
+    await ncNewsApi.post(`/articles/${article_id}/comments`, body);
   } catch (err) {}
 };
 

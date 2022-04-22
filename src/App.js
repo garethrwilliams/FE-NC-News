@@ -12,6 +12,7 @@ function App() {
         <Route path='/articles' element={<Articles />}></Route>
         <Route path='/articles/topics/:topic' element={<Articles />}></Route>
         <Route path='/articles/:article_id' element={<ArticlePage />}></Route>
+        <Route path='*' element={<h1>404: page not found</h1>} />
       </Routes>
     </div>
   );
