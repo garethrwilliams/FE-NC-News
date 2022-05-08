@@ -7,6 +7,7 @@ import ArticlePagination from './ArticlePagination';
 import {getArticles, getTopics} from '../utils/api';
 import {categoryBackground} from '../utils/helperFunctions';
 import styles from '../styles/Articles.module.css';
+import ArticleCard from './ArticleCard';
 
 export default function Articles(props) {
   const {topic} = useParams();
@@ -19,42 +20,30 @@ export default function Articles(props) {
 
   useEffect(() => {
     Promise.all([getArticles(topic, page, searchParams), getTopics()])
-      .catch((err) => {
-        if (err) return setLastPage(true);
-      })
 
       .then((data) => {
         setArticles(data[0]);
         setTopics(data[1]);
         setIsLoading(false);
         setLastPage(false);
+      })
+      .catch((err) => {
+        setPage((current) => --current);
+        setLastPage(true);
       });
   }, [topic, page, searchParams]);
 
-  if (isLoading) return;
+  // if (isLoading) return;
 
   return (
     <div className={styles.Articles__articlesContainer}>
       <h1>Articles</h1>
       <FilterArticles topics={topics} setSearchParams={setSearchParams} />
       <ul className={styles.Articles__articlesList}>
-        {articles.map((article) => {
-          return (
-            <li
-              style={categoryBackground(article.topic)}
-              className={styles.Articles__articleItem}
-              key={article.article_id}
-            >
-              <Link to={{pathname: `/articles/${article.article_id}`}}>
-                <section className={styles.Articles__articleContainer}>
-                  <h5>{article.title}</h5>
-                  <p>{article.author}</p>
-                  <p>{article.topic}</p>
-                </section>
-              </Link>
-            </li>
-          );
-        })}
+        {articles &&
+          articles.map((article) => {
+            return <ArticleCard article={article} />;
+          })}
       </ul>
       <ArticlePagination page={page} setPage={setPage} lastPage={lastPage} />
     </div>

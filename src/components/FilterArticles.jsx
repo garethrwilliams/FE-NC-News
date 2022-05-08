@@ -25,9 +25,10 @@ export default function FilterArticles({topics, setSearchParams}) {
       <label htmlFor='topic'>Select topic</label>
 
       <select id='topic' onChange={handleTopicChange}>
-        {topics.map((topic) => {
-          return <option key={topic.slug}>{topic.slug}</option>;
-        })}
+        {topics &&
+          topics.map((topic) => {
+            return <option key={topic.slug}>{topic.slug}</option>;
+          })}
       </select>
 
       <label htmlFor='sortBy'>Sort articles by</label>
