@@ -4,38 +4,38 @@ const ncNewsApi = axios.create({
   baseURL: 'https://gareths-nc-news.herokuapp.com/api',
 });
 
-export const getArticles = async (topic, page = 1, searchParams) => {
+export const getArticles = async (topic, page = 1, searchParams, limit = 6) => {
   const params = {
     topic: topic,
-    limit: 6,
+    limit: limit,
     p: page,
   };
   searchParams.forEach((value, key) => {
     params[key] = value;
   });
 
-  const {data} = await ncNewsApi.get('/articles', {params: params});
+  const { data } = await ncNewsApi.get('/articles', { params: params });
   return data.articles;
 };
 
 export const getTopics = async () => {
-  const {data} = await ncNewsApi.get('/topics');
+  const { data } = await ncNewsApi.get('/topics');
   return data.topics;
 };
 
 export const getArticle = async (article_id) => {
-  const {data} = await ncNewsApi.get(`/articles/${article_id}`);
+  const { data } = await ncNewsApi.get(`/articles/${article_id}`);
   return data.article;
 };
 
 export const patchArticle = async (article_id, body) => {
   try {
-    const {data} = await ncNewsApi.patch(`/articles/${article_id}`, body);
+    const { data } = await ncNewsApi.patch(`/articles/${article_id}`, body);
   } catch (err) {}
 };
 
 export const getComments = async (article_id) => {
-  const {data} = await ncNewsApi.get(`/articles/${article_id}/comments`, {
+  const { data } = await ncNewsApi.get(`/articles/${article_id}/comments`, {
     params: {
       limit: 50,
     },
@@ -54,12 +54,12 @@ export const postComment = async (article_id, body) => {
 };
 
 export const deleteComment = async (comment_id) => {
-  const {data} = await ncNewsApi.delete(`comments/${comment_id}`);
+  const { data } = await ncNewsApi.delete(`comments/${comment_id}`);
   console.log('data:', data);
   return data;
 };
 
 export const getUsers = async () => {
-  const {data} = await ncNewsApi.get('/users');
-  return data.users.map((e) => e.username);
+  const { data } = await ncNewsApi.get('/users');
+  return data.users;
 };

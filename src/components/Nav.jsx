@@ -1,31 +1,23 @@
-import {Link} from 'react-router-dom';
-import {useContext} from 'react';
-import {UserContext} from '../contexts/User';
-import styles from '../styles/Nav.module.css';
-import news from '../assets/news.png';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../contexts/User';
 
 export default function Nav() {
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   return (
-    <nav className=' bg-white border-gray border p-4 m-10 rounded '>
-      <div className='container flex flex-wrap justify-between items-center mx-auto'>
-        <Link to='/'>
-          <div className='flex items-centre'>
-            <span className='text-xl font-sans  dark:text-white absolute m-auto antialiased'>
-              NC-News
-            </span>
-            <img
-              src={news}
-              className='h-32  rounded-full w-50 box-border'
-            ></img>
-          </div>
-        </Link>
-        <nav className='Nav__links'>
-          <Link to={'/users'}>Users</Link> |{' '}
-          <Link to={'/articles'}>Articles</Link>
+    <nav className=' py-5 mb-5 bg-gray border-y-2 border-black '>
+      <div className='flex  justify-between items-center mx-4'>
+        <nav>
+          <Link to={'/profile'} className='hover:text-grayLight'>
+            Profile
+          </Link>{' '}
+          |{' '}
+          <Link to={'/articles'} className='hover:text-grayLight'>
+            Articles
+          </Link>
         </nav>
-        <div className='Nav__loggedIn'>{user}</div>
+        <div className=''>{user}</div>
       </div>
     </nav>
   );

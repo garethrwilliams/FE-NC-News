@@ -1,12 +1,13 @@
 import AddComment from './AddComment';
-import {getComments} from '../utils/api';
-import {deleteComment} from '../utils/api';
-import {useEffect, useState} from 'react';
-import style from '../styles/Comments.module.css';
+import { getComments } from '../utils/api';
+import { deleteComment } from '../utils/api';
+import { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../contexts/User';
 
-export default function Comments({article_id}) {
+export default function Comments({ article_id }) {
+  const { user } = useContext(UserContext);
   const [comments, setComments] = useState();
-  const [updateConfirmed, setUpdateConfirmed] = useState();
+  const [updateConfirmed, setUpdateConfirmed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   function dateToString(timestamp) {
@@ -29,32 +30,38 @@ export default function Comments({article_id}) {
         setComments={setComments}
         setUpdateConfirmed={setUpdateConfirmed}
       />
-      <ul className={style.Comments__container}>
-        <h3>
+      <ul className=' mx-20'>
+        <h3 className='p-2'>
           Comments
           <em> ({comments.length})</em>
         </h3>
         {comments.map((comment, i) => {
           return (
-            <li className={style.Comments__commentList} key={i}>
-              <div className={style.Comments__commentHeader}>
+            <li className='m-2' key={i}>
+              <div className='flex justify-between '>
                 <h4>{comment.username}</h4>
                 <em>{dateToString(comment.created_at)}</em>
               </div>
               <hr />
-              <p>{comment.body}</p>
-              <div className={style.Comments__votesDelete}>
+              <p className='pt-4 text-justify'>{comment.body}</p>
+              <div className='flex justify-between mb-16 mt-4'>
                 <p>Votes: {comment.votes}</p>
-                <button
-                  onClick={() => {
-                    const newComments = [...comments];
-                    newComments.splice(i, 1);
-                    setComments(newComments);
-                    deleteComment(comment.comment_id);
-                  }}
-                >
-                  Delete
-                </button>
+                {comment.username === user ? (
+                  <button
+                    onClick={() => {
+                      const newComments = [...comments];
+                      newComments.splice(i, 1);
+                      setComments(newComments);
+                      deleteComment(comment.comment_id);
+                    }}
+                    className={`text-white bg-gray border border-gray rounded mb-2 px-2 hover:bg-grayDark
+          }`}
+                  >
+                    Delete
+                  </button>
+                ) : (
+                  ''
+                )}
               </div>
             </li>
           );

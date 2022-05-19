@@ -10,23 +10,29 @@ module.exports = {
     },
 
     colors: {
-      blue: '#1fb6ff',
-      purple: '#7e5bef',
-      pink: '#ff49db',
-      orange: '#ff7849',
-      green: '#13ce66',
-      yellow: '#ffc82c',
-      'gray-dark': '#273444',
-      gray: '#8492a6',
-      'gray-light': '#d3dce6',
+      white: '#FFFFFF',
+      gray: '#9e9e9d',
+      grayDark: '#63635f',
+      grayLight: '#d7d7d9',
+      yellow: '#fae596',
+      mustard: '#a17602',
+      green: '#3fb0ac',
+      blue: '#173e43',
     },
 
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      sans: ['Montserrat', 'sans-serif'],
+      serif: ['', 'serif'],
+      poppins: ['Poppins', 'sans-serif'],
+      adelia: ['ADELIA', 'cursive'],
     },
 
-    extend: {},
+    extend: {
+      animation: {
+        bounce200: 'bounce 1s infinite 200ms',
+        bounce400: 'bounce 1s infinite 400ms',
+      },
+    },
   },
 
   plugins: [],

@@ -1,18 +1,44 @@
-export function categoryBackground(category) {
+function categoryBackground(category) {
   let backgroundColour = '';
   switch (category) {
     case 'cooking':
-      backgroundColour = 'khaki';
+      backgroundColour = '#a17602';
       break;
     case 'football':
-      backgroundColour = 'bisque';
+      backgroundColour = '#3fb0ac';
       break;
     case 'coding':
-      backgroundColour = 'lavender';
+      backgroundColour = '#173e43';
       break;
     default:
-      backgroundColour = 'grey';
+      backgroundColour = '#dddfd4';
   }
 
-  return {backgroundColor: `${backgroundColour}`};
+  return { backgroundColor: `${backgroundColour}` };
 }
+
+function capitalise(word) {
+  return word
+    .split('')
+    .map((letter, i) => {
+      if (i === 0) {
+        return letter.toUpperCase();
+      }
+      return letter;
+    })
+    .join('');
+}
+
+function uncapitalise(word) {
+  return word
+    .split('')
+    .map((letter, i) => {
+      if (i === 0) {
+        return letter.toLowerCase();
+      }
+      return letter;
+    })
+    .join('');
+}
+
+export { categoryBackground, capitalise, uncapitalise };
