@@ -57,7 +57,7 @@ export default function FilterArticles({ topics, setSearchParams }) {
         <option value='DESC'>Descending</option>
       </select>
 
-      <Link to='/articles'>
+      <Link to='/'>
         <button className='border border-gray rounded my-5 px-2'>CLEAR</button>
       </Link>
     </div>

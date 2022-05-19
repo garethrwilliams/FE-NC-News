@@ -5,17 +5,21 @@ const ncNewsApi = axios.create({
 });
 
 export const getArticles = async (topic, page = 1, searchParams, limit = 6) => {
-  const params = {
-    topic: topic,
-    limit: limit,
-    p: page,
-  };
-  searchParams.forEach((value, key) => {
-    params[key] = value;
-  });
+  try {
+    const params = {
+      topic: topic,
+      limit: limit,
+      p: page,
+    };
+    searchParams.forEach((value, key) => {
+      params[key] = value;
+    });
 
-  const { data } = await ncNewsApi.get('/articles', { params: params });
-  return data.articles;
+    const { data } = await ncNewsApi.get('/articles', { params: params });
+    return data.articles;
+  } catch (err) {
+    console.log('err:', err);
+  }
 };
 
 export const getTopics = async () => {

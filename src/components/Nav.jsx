@@ -13,7 +13,7 @@ export default function Nav() {
             Profile
           </Link>{' '}
           |{' '}
-          <Link to={'/articles'} className='hover:text-grayLight'>
+          <Link to={'/'} className='hover:text-grayLight'>
             Articles
           </Link>
         </nav>

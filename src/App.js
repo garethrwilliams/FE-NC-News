@@ -11,7 +11,7 @@ function App() {
       <Logo />
       <Nav />
       <Routes>
-        <Route path='/articles' element={<Articles />}></Route>
+        <Route path='/' element={<Articles />}></Route>
         <Route path='/profile' element={<Profile />}></Route>
         <Route path='/articles/topics/:topic' element={<Articles />}></Route>
         <Route path='/articles/:article_id' element={<ArticlePage />}></Route>
